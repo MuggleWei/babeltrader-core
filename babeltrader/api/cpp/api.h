@@ -13,5 +13,7 @@
 
 #include "babeltrader/api/cpp/macro.h"
 #include "babeltrader/api/cpp/enum.h"
+#include "babeltrader/api/cpp/struct.h"
+#include "babeltrader/api/cpp/trade_api.h"
 
 #endif /* ifndef BABELTRADER_CPP_API_H_ */

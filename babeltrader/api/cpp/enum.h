@@ -27,9 +27,9 @@ enum EnumApi
 	Api_Max,
 };
 BABELTRADER_API_EXPORT
-const char* strEnumApi(int market);
+const char* strEnumApi(int api_type);
 BABELTRADER_API_EXPORT
-EnumApi getEnumApi(const char *market);
+EnumApi getEnumApi(const char *api_type);
 
 /**
  * @brief Exchange enum
