@@ -87,12 +87,12 @@ TEST_F(TestEndianFixture, NetMsgReqQuoteSub)
 	msg.head.payload_len = sizeof(msg.msg);
 
 	msg.msg.req_id = 1;
-	msg.msg.quote_type = EnumQuoteType::QuoteType_Snapshot;
+	msg.msg.quote_type = EnumQuoteType::QUOTE_TYPE_SNAPSHOT;
 
 	Instrument &instrument = msg.msg.instrument;
-	instrument.api = EnumApi::Api_CTP;
-	instrument.exchange = EnumExchange::Exchange_SHFE;
-	instrument.product_type = EnumProductType::ProductType_Futures;
+	instrument.api = EnumApi::API_CTP;
+	instrument.exchange = EnumExchange::EXCHANGE_SHFE;
+	instrument.product_type = EnumProductType::PRODUCT_TYPE_FUTURES;
 	strncpy(instrument.instrument_id, "rb2201", sizeof(instrument.instrument_id));
 
 	NetMsgReqQuoteSub msg_cpy;
@@ -111,12 +111,12 @@ TEST_F(TestEndianFixture, NetMsgRspQuoteSub)
 
 	MsgReqQuoteSub &req = msg.msg.req;
 	req.req_id = 1;
-	req.quote_type = EnumQuoteType::QuoteType_Snapshot;
+	req.quote_type = EnumQuoteType::QUOTE_TYPE_SNAPSHOT;
 
 	Instrument &instrument = req.instrument;
-	instrument.api = EnumApi::Api_CTP;
-	instrument.exchange = EnumExchange::Exchange_SHFE;
-	instrument.product_type = EnumProductType::ProductType_Futures;
+	instrument.api = EnumApi::API_CTP;
+	instrument.exchange = EnumExchange::EXCHANGE_SHFE;
+	instrument.product_type = EnumProductType::PRODUCT_TYPE_FUTURES;
 	strncpy(instrument.instrument_id, "rb2201", sizeof(instrument.instrument_id));
 
 	msg.msg.err_info.err_id = 10001;

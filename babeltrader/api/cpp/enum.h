@@ -20,11 +20,11 @@ NS_BABELTRADER_BEGIN
  */
 enum EnumApi
 {
-	Api_Unknown = 0,
-	Api_CTP,    //!< CTP
-	Api_XTP,    //!< XTP
-	Api_OKEX,   //!< OKEX
-	Api_Max,
+	API_UNKNOWN = 0,
+	API_CTP,    //!< CTP
+	API_XTP,    //!< XTP
+	API_OKEX,   //!< OKEX
+	API_Max,
 };
 BABELTRADER_API_EXPORT
 const char* strEnumApi(int api_type);
@@ -36,16 +36,16 @@ EnumApi getEnumApi(const char *api_type);
  */
 enum EnumExchange
 {
-	Exchange_Unknown = 0,
-	Exchange_SHFE,   //!< Shanghai Futures Exchange
-	Exchange_CZCE,   //!< Zhengzhou Commodities Exchange
-	Exchange_DCE,    //!< Dalian Commodity Exchange
-	Exchange_CFFEX,  //!< China Financial Futures Exchange
-	Exchange_INE,    //!< Shanghai International Energy Exchange
-	Exchange_SSE,    //!< Shanghai Stock Exchange
-	Exchange_SZSE,   //!< Shenzhen Stock Exchange
-	Exchange_OKEX,   //!< OKEX
-	Exchange_Max,
+	EXCHANGE_UNKNOWN = 0,
+	EXCHANGE_SHFE,   //!< Shanghai Futures Exchange
+	EXCHANGE_CZCE,   //!< Zhengzhou Commodities Exchange
+	EXCHANGE_DCE,    //!< Dalian Commodity Exchange
+	EXCHANGE_CFFEX,  //!< China Financial Futures Exchange
+	EXCHANGE_INE,    //!< Shanghai International Energy Exchange
+	EXCHANGE_SSE,    //!< Shanghai Stock Exchange
+	EXCHANGE_SZSE,   //!< Shenzhen Stock Exchange
+	EXCHANGE_OKEX,   //!< OKEX
+	EXCHANGE_Max,
 };
 BABELTRADER_API_EXPORT
 const char* strEnumExchange(int exchange);
@@ -57,11 +57,11 @@ EnumExchange getEnumExchange(const char *exchange);
  */
 enum EnumProductType
 {
-	ProductType_Unknown = 0,
-	ProductType_Spot,    //!< spot
-	ProductType_Futures, //!< futures
-	ProductType_Option,  //!< option
-	ProductType_Max,
+	PRODUCT_TYPE_UNKNOWN = 0,
+	PRODUCT_TYPE_SPOT,    //!< spot
+	PRODUCT_TYPE_FUTURES, //!< futures
+	PRODUCT_TYPE_OPTION,  //!< option
+	PRODUCT_TYPE_Max,
 };
 BABELTRADER_API_EXPORT
 const char* strEnumProductType(int product_type);
@@ -73,10 +73,10 @@ EnumProductType getEnumProductType(const char *product_type);
  */
 enum EnumQuoteType
 {
-	QuoteType_Unknown = 0,
-	QuoteType_Snapshot, //!< snapshot, include last price and n bid&ask
-	QuoteType_Tick,     //!< tick data
-	QuoteType_Max,
+	QUOTE_TYPE_UNKNOWN = 0,
+	QUOTE_TYPE_SNAPSHOT, //!< snapshot, include last price and n bid&ask
+	QUOTE_TYPE_TICK,     //!< tick data
+	QUOTE_TYPE_Max,
 };
 BABELTRADER_API_EXPORT
 const char* strEnumQuoteType(int quote_type);

@@ -79,15 +79,15 @@ BABELTRADER_STR_TO_ENUM(enum_name)
 
 NS_BABELTRADER_BEGIN
 
-static const char *s_apis[Api_Max] = {
+static const char *s_apis[API_Max] = {
 	"",
 	"ctp",
 	"xtp",
 	"okex"
 };
-BABELTRADER_ENUM_CLASS(s_apis, EnumApi, Api_Max);
+BABELTRADER_ENUM_CLASS(s_apis, EnumApi, API_Max);
 
-static const char *s_exchanges[Exchange_Max] = {
+static const char *s_exchanges[EXCHANGE_Max] = {
 	"",
 	"SHFE",
 	"CZCE",
@@ -98,21 +98,21 @@ static const char *s_exchanges[Exchange_Max] = {
 	"SZSE",
 	"OKEX",
 };
-BABELTRADER_ENUM_CLASS(s_exchanges, EnumExchange, Exchange_Max);
+BABELTRADER_ENUM_CLASS(s_exchanges, EnumExchange, EXCHANGE_Max);
 
-static const char *s_product_types[ProductType_Max] = {
+static const char *s_product_types[PRODUCT_TYPE_Max] = {
 	"",
 	"spot",
 	"futures",
 	"option"
 };
-BABELTRADER_ENUM_CLASS(s_product_types, EnumProductType, ProductType_Max);
+BABELTRADER_ENUM_CLASS(s_product_types, EnumProductType, PRODUCT_TYPE_Max);
 
-static const char *s_quote_type[QuoteType_Max] = {
+static const char *s_quote_type[QUOTE_TYPE_Max] = {
 	"",
 	"snapshot",
 	"tick"
 };
-BABELTRADER_ENUM_CLASS(s_quote_type, EnumQuoteType, QuoteType_Max);
+BABELTRADER_ENUM_CLASS(s_quote_type, EnumQuoteType, QUOTE_TYPE_Max);
 
 NS_BABELTRADER_END
