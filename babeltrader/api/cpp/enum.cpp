@@ -81,9 +81,10 @@ NS_BABELTRADER_BEGIN
 
 static const char *s_apis[API_Max] = {
 	"",
-	"ctp",
-	"xtp",
-	"okex"
+	"SIM",
+	"CTP",
+	"XTP",
+	"OKEX"
 };
 BABELTRADER_ENUM_CLASS(s_apis, EnumApi, API_Max);
 

@@ -40,8 +40,6 @@
 
 // service
 #include "babeltrader/base/service/endian_conv.h"
-#include "babeltrader/base/service/quote_server_config.h"
-#include "babeltrader/base/service/quote_sub_config.h"
 #include "babeltrader/base/service/socket_handle.h"
 #include "babeltrader/base/service/tcp_server_handle.h"
 #include "babeltrader/base/service/event_loop.h"

@@ -73,6 +73,7 @@ set(RAPIDJSON_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/rapidjson-src)
 
 set(babeltrader_api babeltrader_cpp_api)
 set(babeltrader_base babeltrader_cpp_base)
+set(babeltrader_utils babeltrader_cpp_utils)
 set(babeltrader_test_utils babeltrader_test_utils)
 
 include_directories(
@@ -131,11 +132,53 @@ function(add_gtest name folder)
 	add_test(NAME ${name} COMMAND ${name})
 endfunction()
 
-################ c++ api & base test ################
+function(add_example name folder)
+	message("add example ${name} ${folder}")
+	
+	set(name example_${name})
+
+	file(GLOB tmp_h ${folder}/*.h)
+	file(GLOB tmp_c ${folder}/*.c)
+	file(GLOB tmp_cpp ${folder}/*.cpp)
+	file(GLOB tmp_cc ${folder}/*.cc)
+
+	if (WIN32)
+		add_executable(${name} ${tmp_h} ${tmp_c} ${tmp_cpp} ${tmp_cc})
+		set_target_properties(${name}
+			PROPERTIES
+			FOLDER "example"
+			VS_DEBUGGER_WORKING_DIRECTORY "$(OutDir)"
+		)
+	else()
+		add_executable(${name} ${tmp_c} ${tmp_cpp} ${tmp_cc})
+	endif(WIN32)
+	add_dependencies(${name}
+		${babeltrader_base}
+		${babeltrader_api}
+	)
+	target_link_libraries(${name}
+		${babeltrader_base}
+		${babeltrader_api}
+	)
+	target_compile_definitions(${name}
+		PRIVATE BABELTRADER_USE_LOG_MACRO=1
+	)
+endfunction()
+
+################ c++ test ################
 if (BABELTRADER_BUILD_TESTING)
-	message("---------------------- test api & base ----------------------")
+	message("---------------------- babeltrader-core test ----------------------")
 	SUBDIRLIST(test_root_dir ${CMAKE_CURRENT_LIST_DIR}/test)
 	FOREACH(subdir ${test_root_dir})
 		add_gtest(${subdir} ${CMAKE_CURRENT_LIST_DIR}/test/${subdir})
+	ENDFOREACH()
+endif()
+
+################ c++ example ################
+if (BABELTRADER_BUILD_EXAMPLE)
+	message("---------------------- babeltrader-core example ----------------------")
+	SUBDIRLIST(example_dirs ${CMAKE_CURRENT_LIST_DIR}/example)
+	FOREACH(subdir ${example_dirs})
+		add_example(${subdir} ${CMAKE_CURRENT_LIST_DIR}/example/${subdir})
 	ENDFOREACH()
 endif()

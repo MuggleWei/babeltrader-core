@@ -21,6 +21,7 @@ NS_BABELTRADER_BEGIN
 enum EnumApi
 {
 	API_UNKNOWN = 0,
+	API_SIM,    //!< babeltrader simulation
 	API_CTP,    //!< CTP
 	API_XTP,    //!< XTP
 	API_OKEX,   //!< OKEX
@@ -74,7 +75,7 @@ EnumProductType getEnumProductType(const char *product_type);
 enum EnumQuoteType
 {
 	QUOTE_TYPE_UNKNOWN = 0,
-	QUOTE_TYPE_SNAPSHOT, //!< snapshot, include last price and n bid&ask
+	QUOTE_TYPE_SNAPSHOT, //!< snapshot, include last, bid and ask price/vol
 	QUOTE_TYPE_TICK,     //!< tick data
 	QUOTE_TYPE_Max,
 };

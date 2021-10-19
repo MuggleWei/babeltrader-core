@@ -14,9 +14,10 @@ TEST(Enum, EnumApi)
 		ASSERT_EQ((int)getEnumApi(str), i);
 	}
 
-	ASSERT_STREQ(strEnumApi(API_CTP), "ctp");
-	ASSERT_STREQ(strEnumApi(API_XTP), "xtp");
-	ASSERT_STREQ(strEnumApi(API_OKEX), "okex");
+	ASSERT_STREQ(strEnumApi(API_SIM), "SIM");
+	ASSERT_STREQ(strEnumApi(API_CTP), "CTP");
+	ASSERT_STREQ(strEnumApi(API_XTP), "XTP");
+	ASSERT_STREQ(strEnumApi(API_OKEX), "OKEX");
 	ASSERT_EQ(API_OKEX, API_Max - 1);
 }
 
