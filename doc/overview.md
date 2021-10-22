@@ -6,6 +6,8 @@ babeltrader整体项目目录大致如下
 ```
 babeltrader
     |
+    |---- include
+    |
     |---- base
     |
     |---- api
@@ -34,8 +36,11 @@ babeltrader
 ```
 其中base, api以及utils包含在babeltrader-core当中; ${upstream}代表一个上手, 为一个单独的项目
 
+### include
+通用的c头文件
+
 ### base
-base为所有的其他组件的基础库, 不涉及任何业务逻辑
+base为所有的其他组件的基础库, 提供了简单的架构
 
 ### api
 api定义了接口, 所有的 ${upstream}/api 中的接口全部为api的子类

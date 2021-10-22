@@ -38,12 +38,12 @@ void CodecChain::appendCodec(Codec *codec)
 	decode_head_ = encode_cb_.getPrev();
 }
 
-void CodecChain::setEncodeCallback(func_codec_cb &cb)
+void CodecChain::setEncodeCallback(const func_codec_cb &cb)
 {
 	encode_cb_.setEncodeCallback(cb);
 }
 
-void CodecChain::setDecodeCallback(func_codec_cb &cb)
+void CodecChain::setDecodeCallback(const func_codec_cb &cb)
 {
 	decode_cb_.setDecodeCallback(cb);
 }

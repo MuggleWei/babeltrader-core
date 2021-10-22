@@ -1,6 +1,7 @@
 #include "event_loop.h"
 #include <thread>
-#include "babeltrader/base/defines/msg_type.h"
+#include "babeltrader/include/common_msg_struct.h"
+#include "babeltrader/include/common_msg_type.h"
 #include "babeltrader/base/memory/event_msg_pool.h"
 
 NS_BABELTRADER_BEGIN

@@ -11,16 +11,7 @@
 #ifndef BABELTRADER_API_MACRO_H_
 #define BABELTRADER_API_MACRO_H_
 
-// namespace
-#ifdef __cplusplus
-	#define NS_BABELTRADER_BEGIN namespace babeltrader {
-	#define NS_BABELTRADER_END   }
-	#define USING_NS_BABELTRADER using namespace babeltrader
-#else
-	#define NS_BABELTRADER_BEGIN
-	#define NS_BABELTRADER_END  
-	#define USING_NS_BABELTRADER
-#endif 
+#include "babeltrader/include/base_macro.h"
 
 // export macro
 #if WIN32 && defined(BABELTRADER_API_USE_DLL)

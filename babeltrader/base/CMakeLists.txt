@@ -15,9 +15,8 @@ target_include_directories(${babeltrader_base} PUBLIC
 add_dependencies(${babeltrader_base}
 	mugglecpp
 	mugglec
-	${babeltrader_api}
 )
-target_link_libraries(${babeltrader_base} mugglecpp mugglec ${babeltrader_api})
+target_link_libraries(${babeltrader_base} mugglecpp mugglec)
 set_target_properties(${babeltrader_base}
 	PROPERTIES
 	VERSION ${BABELTRADER_VERSION}

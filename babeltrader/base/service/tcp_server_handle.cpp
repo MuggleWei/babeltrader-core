@@ -1,7 +1,8 @@
 #include "tcp_server_handle.h"
 #include "babeltrader/base/defines/enum.h"
-#include "babeltrader/base/defines/net_message.h"
-#include "babeltrader/base/defines/msg_type.h"
+#include "babeltrader/include/common_msg_type.h"
+#include "babeltrader/include/common_net_message.h"
+#include "babeltrader/include/common_msg_struct.h"
 
 NS_BABELTRADER_BEGIN
 

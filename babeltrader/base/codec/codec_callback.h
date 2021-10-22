@@ -71,7 +71,7 @@ public:
 	 * @param cb
 	 */
 	BABELTRADER_EXPORT
-	void setEncodeCallback(func_codec_cb &cb);
+	void setEncodeCallback(const func_codec_cb &cb);
 
 	/**
 	 * @brief set all decode complete callback
@@ -79,7 +79,7 @@ public:
 	 * @param cb
 	 */
 	BABELTRADER_EXPORT
-	void setDecodeCallback(func_codec_cb &cb);
+	void setDecodeCallback(const func_codec_cb &cb);
 
 private:
 	func_codec_cb encode_cb_; //!< encode callback

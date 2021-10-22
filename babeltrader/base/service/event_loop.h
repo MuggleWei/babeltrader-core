@@ -12,7 +12,7 @@
 #define BABELTRADER_EVENT_LOOP_H_
 
 #include "babeltrader/base/defines/macro.h"
-#include "babeltrader/base/defines/event_message.h"
+#include "babeltrader/include/common_event_message.h"
 #include "babeltrader/base/service/message_dispatcher.hpp"
 
 #include <set>

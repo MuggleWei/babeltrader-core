@@ -11,14 +11,13 @@
 #ifndef BABELTRADER_MSG_STRUCT_H_
 #define BABELTRADER_MSG_STRUCT_H_
 
-#include "babeltrader/base/defines/macro.h"
+#include "babeltrader/api/cpp/macro.h"
+#include <stdint.h>
 
 ; // for avoid pragma warning tip in vim
 #pragma pack(push, 1)
 
 NS_BABELTRADER_BEGIN
-
-#define BABELTRADER_NET_MTU 1400
 
 #define BABELTRADER_INSTRUMENT_ID_LEN 32
 #define BABELTRADER_PRODUCT_ID_LEN 32
@@ -43,12 +42,6 @@ struct Instrument
 };
 
 /////////////////////// message struct ///////////////////////
-
-/**
- * @brief empty message
- */
-struct MsgEmpty
-{};
 
 /**
  * @brief error information

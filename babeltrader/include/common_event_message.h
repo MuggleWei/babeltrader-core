@@ -1,19 +1,18 @@
 /******************************************************************************
- *  @file         event_message.h
+ *  @file         common_event_message.h
  *  @author       Muggle Wei
  *  @email        mugglewei@gmail.com
  *  @date         2021-08-17
  *  @copyright    Copyright 2021 Muggle Wei
  *  @license      MIT License
- *  @brief        babeltrader event message
+ *  @brief        babeltrader common event message
  *****************************************************************************/
 
-#ifndef BABELTRADER_EVENT_MESSAGE_H_
-#define BABELTRADER_EVENT_MESSAGE_H_
+#ifndef BABELTRADER_COMMON_EVENT_MESSAGE_H_
+#define BABELTRADER_COMMON_EVENT_MESSAGE_H_
 
-#include "babeltrader/base/defines/macro.h"
-#include "babeltrader/base/defines/struct.h"
-#include "babeltrader/base/defines/net_message.h"
+#include "babeltrader/include/common_macro.h"
+#include <stdint.h>
 
 NS_BABELTRADER_BEGIN
 
@@ -45,9 +44,8 @@ struct EventMessageBlock
 
 struct EventMsgDataPtr
 {
-	EventMessage head; //!< event message head
-
-	void *data;  //!< data pointer
+	EventMessage head;  //!< event message head
+	void         *data; //!< data pointer
 };
 
 #define BABELTRADER_EV_MSG_SIZE(T) (sizeof(T)+sizeof(EventMessage))

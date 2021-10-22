@@ -35,12 +35,12 @@ bool CodecCallback::decode(
 	return decode_cb_(session, data, data_len);
 }
 
-void CodecCallback::setEncodeCallback(func_codec_cb &cb)
+void CodecCallback::setEncodeCallback(const func_codec_cb &cb)
 {
 	encode_cb_ = cb;
 }
 
-void CodecCallback::setDecodeCallback(func_codec_cb &cb)
+void CodecCallback::setDecodeCallback(const func_codec_cb &cb)
 {
 	decode_cb_ = cb;
 }

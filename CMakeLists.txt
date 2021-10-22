@@ -80,11 +80,11 @@ include_directories(
 	${CMAKE_CURRENT_LIST_DIR}
 )
 
-################ babeltrader_cpp_api ################
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/api/cpp)
-
 ################ babeltrader_cpp_base ################
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/base)
+
+# ################ babeltrader_cpp_api ################
+# add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/api/cpp)
 
 ################ test_utils ################
 if (BABELTRADER_BUILD_TESTING)
@@ -154,31 +154,35 @@ function(add_example name folder)
 	endif(WIN32)
 	add_dependencies(${name}
 		${babeltrader_base}
-		${babeltrader_api}
+		${babeltrader_test_utils}
 	)
 	target_link_libraries(${name}
 		${babeltrader_base}
-		${babeltrader_api}
+		${babeltrader_test_utils}
 	)
 	target_compile_definitions(${name}
 		PRIVATE BABELTRADER_USE_LOG_MACRO=1
 	)
 endfunction()
 
-################ c++ test ################
-if (BABELTRADER_BUILD_TESTING)
-	message("---------------------- babeltrader-core test ----------------------")
-	SUBDIRLIST(test_root_dir ${CMAKE_CURRENT_LIST_DIR}/test)
-	FOREACH(subdir ${test_root_dir})
-		add_gtest(${subdir} ${CMAKE_CURRENT_LIST_DIR}/test/${subdir})
-	ENDFOREACH()
-endif()
+# ################ c++ test ################
+# if (BABELTRADER_BUILD_TESTING)
+# 	message("---------------------- babeltrader-core test ----------------------")
+# 	SUBDIRLIST(test_root_dir ${CMAKE_CURRENT_LIST_DIR}/test)
+# 	FOREACH(subdir ${test_root_dir})
+# 		add_gtest(${subdir} ${CMAKE_CURRENT_LIST_DIR}/test/${subdir})
+# 	ENDFOREACH()
+# endif()
 
 ################ c++ example ################
 if (BABELTRADER_BUILD_EXAMPLE)
 	message("---------------------- babeltrader-core example ----------------------")
 	SUBDIRLIST(example_dirs ${CMAKE_CURRENT_LIST_DIR}/example)
 	FOREACH(subdir ${example_dirs})
+		if (${subdir} STREQUAL "include")
+			message("ignore example header directory: ${CMAKE_CURRENT_LIST_DIR}/example/${subdir}")
+			continue()
+		endif()
 		add_example(${subdir} ${CMAKE_CURRENT_LIST_DIR}/example/${subdir})
 	ENDFOREACH()
 endif()

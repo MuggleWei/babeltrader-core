@@ -1,0 +1,13 @@
+#ifndef EXAMPLE_MSG_H_
+#define EXAMPLE_MSG_H_
+
+enum
+{
+	EXAMPLE_MSG_NULL,
+	EXAMPLE_MSG_FOO,
+	EXAMPLE_MSG_BAR,
+	EXAMPLE_MSG_TIMER,
+	MAX_EXAMPLE_MSG,
+};
+
+#endif /* ifndef EXAMPLE_MSG_H_ */

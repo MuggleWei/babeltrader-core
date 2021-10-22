@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "babeltrader/base/babeltrader_base.h"
+#include "test_utils/test_utils.h"
 
 USING_NS_BABELTRADER;
 
