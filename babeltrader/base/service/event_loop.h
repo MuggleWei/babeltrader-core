@@ -25,11 +25,12 @@ public:
 	/**
 	 * @brief Event loop constructor
 	 *
+	 * @param max_msg_type  max message type id
 	 * @param capacity  capacity of channel
 	 * @param flags     flags of channel
 	 */
 	BABELTRADER_EXPORT
-	EventLoop(uint32_t capacity, int flags);
+	EventLoop(int max_msg_type, uint32_t capacity, int flags);
 
 	/**
 	 * @brief Event loop destructor
@@ -38,18 +39,10 @@ public:
 	virtual ~EventLoop();
 
 	/**
-	 * @brief 
-	 *
-	 * @param dispatcher
-	 */
-	BABELTRADER_EXPORT
-	void setDispatcher(MessageDispatcher *dispatcher);
-
-	/**
 	 * @brief run event loop
 	 */
 	BABELTRADER_EXPORT
-	void run();
+	virtual void run();
 
 	/**
 	 * @brief push message into event loop
@@ -63,6 +56,15 @@ public:
 	BABELTRADER_EXPORT
 	int push(EventMessage *msg);
 
+	/**
+	 * @brief run timer
+	 *
+	 * @param interval_sec timer interval milliseconds
+	 */
+	BABELTRADER_EXPORT
+	virtual void runTimer(uint32_t interval_ms);
+
+protected:
 	/**
 	 * @brief on receive event message
 	 *
@@ -79,17 +81,9 @@ public:
 	BABELTRADER_EXPORT
 	virtual void clearMessage(EventMessage *msg);
 
-	/**
-	 * @brief run timer
-	 *
-	 * @param interval_sec timer interval seconds
-	 */
-	BABELTRADER_EXPORT
-	virtual void runTimer(uint32_t interval_sec);
-
 protected:
 	muggle::Channel chan_;
-	MessageDispatcher *dispatcher_;
+	MessageDispatcher dispatcher_;
 };
 
 #define BABELTRADER_EV_CB(msg_type, func, T) \

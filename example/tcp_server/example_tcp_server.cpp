@@ -1,15 +1,17 @@
 #include <thread>
 #include "babeltrader/base/babeltrader_base.h"
 #include "example/include/example_msg.h"
+#include "example_tcp_server_ev_loop.h"
 
 void runTCPServer(babeltrader::EventLoop *ev_loop)
 {
 	std::thread th([ev_loop]{
 		// configs
-		unsigned int max_connect = 512;
-		int chan_size = 1024;
-		int socket_bytes_buf_size = 4096 * 1024;
-		int socket_recv_unit_size = 4096;
+		unsigned int max_connect = BABELTRADER_DEFAULT_HINTS_MAX_CONN;
+		int chan_size = BABELTRADER_DEFAULT_PIPE_SIZE;
+		int socket_bytes_buf_size = BABELTRADER_DEFAULT_BYTES_BUF_SIZE;
+		int socket_recv_unit_size = BABELTRADER_DEFAULT_RECV_UNIT_SIZE;
+		int max_msg_size = BABELTRADER_DEFAULT_RECV_UNIT_SIZE;
 
 		const char *host = "127.0.0.1";
 		const char *serv = "10102";
@@ -22,10 +24,11 @@ void runTCPServer(babeltrader::EventLoop *ev_loop)
 		babeltrader::TCPServerHandle handle;
 		handle.setEventLoop(ev_loop);
 		handle.appendCodec(&codec);
+		handle.setSessionPool(&session_pool);
 		handle.setEventMessagePool(&msg_pool);
 		handle.setBytesBufferSize(socket_bytes_buf_size);
 		handle.setRecvUnitSize(socket_recv_unit_size);
-		handle.setMaxMsgSize(MAX_EXAMPLE_MSG);
+		handle.setMaxMsgSize(max_msg_size);
 
 		// TCP server
 		muggle::TcpServer tcp_server;
@@ -41,22 +44,26 @@ void runTCPServer(babeltrader::EventLoop *ev_loop)
 
 int main()
 {
-	// initialize log
-	if (!babeltrader::Log::Init(LOG_LEVEL_INFO, "log/example_tcp_server.log", LOG_LEVEL_DEBUG))
+	// init log
+	if (!babeltrader::Log::Init(LOG_LEVEL_INFO, "log/example_tcp_server.log", LOG_LEVEL_TRACE))
 	{
 		exit(EXIT_FAILURE);
 	}
+
+	// init socket
+	muggle_socket_lib_init();
 
 	LOG_INFO("Launch example TCP Server");
 
 	// event loop
 	int msg_pool_size = 1024;
-	babeltrader::MessageDispatcher msg_dispatcher(MAX_EXAMPLE_MSG);
-	babeltrader::EventLoop ev_loop(msg_pool_size, 0);
-	ev_loop.setDispatcher(&msg_dispatcher);
+	ExampleEventLoop ev_loop(MAX_EXAMPLE_MSG, msg_pool_size, 0);
 
 	// run TCP server
 	runTCPServer(&ev_loop);
+
+	// run timer
+	ev_loop.runTimer(3000);
 
 	// run event loop
 	ev_loop.run();
