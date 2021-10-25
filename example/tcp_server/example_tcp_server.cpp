@@ -21,7 +21,7 @@ void runTCPServer(babeltrader::EventLoop *ev_loop)
 		babeltrader::EventMsgSowrPool msg_pool(chan_size);
 		babeltrader::TcpBytesBufCodec codec;
 
-		babeltrader::TCPServerHandle handle;
+		babeltrader::TCPSocketHandle handle;
 		handle.setEventLoop(ev_loop);
 		handle.appendCodec(&codec);
 		handle.setSessionPool(&session_pool);
@@ -29,13 +29,15 @@ void runTCPServer(babeltrader::EventLoop *ev_loop)
 		handle.setBytesBufferSize(socket_bytes_buf_size);
 		handle.setRecvUnitSize(socket_recv_unit_size);
 		handle.setMaxMsgSize(max_msg_size);
+		handle.setConnRole(babeltrader::CONNECT_ROLE_CLIENT);
+		handle.setConnHandleId(0);
 
 		// TCP server
 		muggle::TcpServer tcp_server;
 		tcp_server.setHandle(&handle);
-		tcp_server.setHintsMaxPeer(max_connect);
 		tcp_server.setListenAddr(host, serv);
 		tcp_server.setTcpNoDelay(true);
+		tcp_server.setHintsMaxPeer(max_connect);
 
 		tcp_server.run();
 	});
@@ -57,7 +59,7 @@ int main()
 
 	// event loop
 	int msg_pool_size = 1024;
-	ExampleEventLoop ev_loop(MAX_EXAMPLE_MSG, msg_pool_size, 0);
+	ExampleServerEventLoop ev_loop(MAX_EXAMPLE_MSG, msg_pool_size, 0);
 
 	// run TCP server
 	runTCPServer(&ev_loop);

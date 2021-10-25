@@ -6,11 +6,11 @@
 
 USING_NS_BABELTRADER;
 
-class ExampleEventLoop : public ServerEventLoop
+class ExampleServerEventLoop : public ServerEventLoop
 {
 public:
-	ExampleEventLoop(int max_msg_type, int capacity, int flags);
-	virtual ~ExampleEventLoop();
+	ExampleServerEventLoop(int max_msg_type, int capacity, int flags);
+	virtual ~ExampleServerEventLoop();
 
 	virtual void registerCallbacks();
 
