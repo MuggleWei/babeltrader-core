@@ -12,6 +12,7 @@
 #define BABELTRADER_TEST_UTILS_MACRO_H_
 
 #include "babeltrader/base/babeltrader_base.h"
+#include "babeltrader/api/cpp/api.h"
 
 // lib and dll
 #if MUGGLE_PLATFORM_WINDOWS && defined(TESTUTILS_USE_DLL)

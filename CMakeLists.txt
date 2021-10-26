@@ -78,13 +78,15 @@ set(babeltrader_test_utils babeltrader_test_utils)
 
 include_directories(
 	${CMAKE_CURRENT_LIST_DIR}
+	${MUGGLECPP_SRC_DIR}
+	${MUGGLEC_SRC_DIR}
 )
 
 ################ babeltrader_cpp_base ################
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/base)
 
-# ################ babeltrader_cpp_api ################
-# add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/api/cpp)
+################ babeltrader_cpp_api ################
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/api/cpp)
 
 ################ test_utils ################
 if (BABELTRADER_BUILD_TESTING)
@@ -165,14 +167,14 @@ function(add_example name folder)
 	)
 endfunction()
 
-# ################ c++ test ################
-# if (BABELTRADER_BUILD_TESTING)
-# 	message("---------------------- babeltrader-core test ----------------------")
-# 	SUBDIRLIST(test_root_dir ${CMAKE_CURRENT_LIST_DIR}/test)
-# 	FOREACH(subdir ${test_root_dir})
-# 		add_gtest(${subdir} ${CMAKE_CURRENT_LIST_DIR}/test/${subdir})
-# 	ENDFOREACH()
-# endif()
+################ c++ test ################
+if (BABELTRADER_BUILD_TESTING)
+	message("---------------------- babeltrader-core test ----------------------")
+	SUBDIRLIST(test_root_dir ${CMAKE_CURRENT_LIST_DIR}/test)
+	FOREACH(subdir ${test_root_dir})
+		add_gtest(${subdir} ${CMAKE_CURRENT_LIST_DIR}/test/${subdir})
+	ENDFOREACH()
+endif()
 
 ################ c++ example ################
 if (BABELTRADER_BUILD_EXAMPLE)

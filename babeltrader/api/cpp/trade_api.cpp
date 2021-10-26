@@ -2,19 +2,16 @@
 
 NS_BABELTRADER_BEGIN
 
-Spi::Spi()
+TradeSpi::TradeSpi()
 {}
 
-Spi::~Spi()
+TradeSpi::~TradeSpi()
 {}
 
-void Spi::OnConnected()
+void TradeSpi::OnConnected()
 {}
 
-void Spi::OnDisconnected()
-{}
-
-void Spi::OnRspLogin(RspLoginField*, RspErrorInfo *, int, bool)
+void TradeSpi::OnDisconnected()
 {}
 
 NS_BABELTRADER_END

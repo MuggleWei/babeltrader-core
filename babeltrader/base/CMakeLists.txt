@@ -34,3 +34,11 @@ target_compile_definitions(${babeltrader_base} PRIVATE
 	BABELTRADER_VER=${babeltrader_version}
 	BABELTRADER_USE_LOG_MACRO=1
 )
+
+install(TARGETS ${babeltrader_base}
+	RUNTIME DESTINATION bin
+	LIBRARY DESTINATION lib
+	ARCHIVE DESTINATION lib/static
+)
+muggle_install_headers(${CMAKE_CURRENT_LIST_DIR} include/babeltrader/base)
+muggle_install_headers(${CMAKE_CURRENT_LIST_DIR}/../include include/babeltrader/include)

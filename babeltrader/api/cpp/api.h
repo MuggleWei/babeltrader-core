@@ -11,9 +11,10 @@
 #ifndef BABELTRADER_CPP_API_H_
 #define BABELTRADER_CPP_API_H_
 
-#include "babeltrader/api/cpp/macro.h"
-#include "babeltrader/api/cpp/enum.h"
-#include "babeltrader/api/cpp/struct.h"
+#include "babeltrader/api/cpp/api_macro.h"
+#include "babeltrader/api/cpp/api_enum.h"
+#include "babeltrader/api/cpp/api_msg_struct.h"
+#include "babeltrader/api/cpp/error.h"
 #include "babeltrader/api/cpp/trade_api.h"
 
 #endif /* ifndef BABELTRADER_CPP_API_H_ */

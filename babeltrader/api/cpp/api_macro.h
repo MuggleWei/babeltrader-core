@@ -11,7 +11,7 @@
 #ifndef BABELTRADER_API_MACRO_H_
 #define BABELTRADER_API_MACRO_H_
 
-#include "babeltrader/include/base_macro.h"
+#include "babeltrader/include/common_macro.h"
 
 // export macro
 #if WIN32 && defined(BABELTRADER_API_USE_DLL)

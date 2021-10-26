@@ -1,5 +1,5 @@
 /******************************************************************************
- *  @file         net_msg.h
+ *  @file         api_net_msg.h
  *  @author       Muggle Wei
  *  @email        mugglewei@gmail.com
  *  @date         2021-10-19
@@ -11,9 +11,32 @@
 #ifndef BABELTRADER_API_NETWORK_MESSAGE_H_
 #define BABELTRADER_API_NETWORK_MESSAGE_H_
 
-#include "babeltrader/api/cpp/macro.h"
+#include "babeltrader/include/common_net_message.h"
+#include "babeltrader/api/cpp/api_macro.h"
+#include "babeltrader/api/cpp/api_msg_struct.h"
 
 NS_BABELTRADER_BEGIN
+
+/////////////////////// common message struct ///////////////////////
+
+/**
+ * @brief heartbeat ping message
+ */
+struct MsgHeartbeatPing
+{
+	uint64_t sec;  //!< timestamp second
+};
+
+/**
+ * @brief heartbeat pong message
+ */
+struct MsgHeartbeatPong
+{
+	uint64_t sec;  //!< timestamp second
+};
+
+
+/////////////////////// network message ///////////////////////
 
 /**
  * @brief MSG_TYPE_HEARTBEAT_PING

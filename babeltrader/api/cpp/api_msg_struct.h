@@ -11,7 +11,7 @@
 #ifndef BABELTRADER_MSG_STRUCT_H_
 #define BABELTRADER_MSG_STRUCT_H_
 
-#include "babeltrader/api/cpp/macro.h"
+#include "babeltrader/api/cpp/api_macro.h"
 #include <stdint.h>
 
 ; // for avoid pragma warning tip in vim
@@ -41,7 +41,7 @@ struct Instrument
 	char instrument_id[BABELTRADER_INSTRUMENT_ID_LEN]; //!< instrument id in exchange
 };
 
-/////////////////////// message struct ///////////////////////
+/////////////////////// common message struct ///////////////////////
 
 /**
  * @brief error information
@@ -51,22 +51,6 @@ struct MsgErrorInfo
 	int64_t err_id;       //!< error id, if it's BABELTRADER_UP_ERR, then see uperr_id
 	int64_t uperr_id;     //!< upstream error id
 	char    err_msg[512]; //!< error message
-};
-
-/**
- * @brief heartbeat ping message
- */
-struct MsgHeartbeatPing
-{
-	uint64_t sec;  //!< timestamp second
-};
-
-/**
- * @brief heartbeat pong message
- */
-struct MsgHeartbeatPong
-{
-	uint64_t sec;  //!< timestamp second
 };
 
 /////////////////////// quote message struct ///////////////////////

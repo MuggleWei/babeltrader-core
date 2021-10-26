@@ -1,17 +1,18 @@
 /******************************************************************************
- *  @file         msg_type.h
+ *  @file         api_msg_type.h
  *  @author       Muggle Wei
  *  @email        mugglewei@gmail.com
  *  @date         2021-08-25
  *  @copyright    Copyright 2021 Muggle Wei
  *  @license      MIT License
- *  @brief        babeltrader message type
+ *  @brief        babeltrader api message type
  *****************************************************************************/
 
-#ifndef BABELTRADER_MESSAGE_TYPE_H_
-#define BABELTRADER_MESSAGE_TYPE_H_
+#ifndef BABELTRADER_API_MESSAGE_TYPE_H_
+#define BABELTRADER_API_MESSAGE_TYPE_H_
 
-#include "babeltrader/api/cpp/macro.h"
+#include "babeltrader/include/common_msg_type.h"
+#include "babeltrader/api/cpp/api_macro.h"
 
 ; // for avoid pragma warning tip in vim
 #pragma pack(push, 1)

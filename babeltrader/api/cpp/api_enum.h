@@ -1,5 +1,5 @@
 /******************************************************************************
- *  @file         enum.h
+ *  @file         api_enum.h
  *  @author       Muggle Wei
  *  @email        mugglewei@gmail.com
  *  @date         2021-09-28
@@ -11,7 +11,7 @@
 #ifndef BABELTRADER_API_ENUM_H_
 #define BABELTRADER_API_ENUM_H_
 
-#include "babeltrader/api/cpp/macro.h"
+#include "babeltrader/api/cpp/api_macro.h"
 
 NS_BABELTRADER_BEGIN
 
