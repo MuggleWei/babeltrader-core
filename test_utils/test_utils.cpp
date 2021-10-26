@@ -42,4 +42,31 @@ bool TestUtils::writeFile(std::string &str, const char *filepath)
 	return true;
 }
 
+std::string TestUtils::DumpBytesToHex(void *data, uint32_t data_len)
+{
+	uint32_t hex_len = data_len * 3 + 1;
+	char *buf = (char*)malloc((size_t)hex_len);
+	memset(buf, 0, hex_len);
+
+	char *bytes = (char*)data;
+	char *p = bytes;
+	for (uint32_t i = 0; i < data_len; i++)
+	{
+		p = buf + i*3;
+		if ((i+1) % 16 == 0)
+		{
+			snprintf(p, 4, "%02x\n", (unsigned char)bytes[i]);
+		}
+		else
+		{
+			snprintf(p, 4, "%02x ", (unsigned char)bytes[i]);
+		}
+	}
+
+	std::string s = buf;
+	free(buf);
+
+	return s;
+}
+
 NS_BABELTRADER_END

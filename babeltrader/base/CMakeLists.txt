@@ -15,9 +15,8 @@ target_include_directories(${babeltrader_base} PUBLIC
 add_dependencies(${babeltrader_base}
 	mugglecpp
 	mugglec
-	${babeltrader_api}
 )
-target_link_libraries(${babeltrader_base} mugglecpp mugglec ${babeltrader_api})
+target_link_libraries(${babeltrader_base} mugglecpp mugglec)
 set_target_properties(${babeltrader_base}
 	PROPERTIES
 	VERSION ${BABELTRADER_VERSION}
@@ -35,3 +34,11 @@ target_compile_definitions(${babeltrader_base} PRIVATE
 	BABELTRADER_VER=${babeltrader_version}
 	BABELTRADER_USE_LOG_MACRO=1
 )
+
+install(TARGETS ${babeltrader_base}
+	RUNTIME DESTINATION bin
+	LIBRARY DESTINATION lib
+	ARCHIVE DESTINATION lib/static
+)
+muggle_install_headers(${CMAKE_CURRENT_LIST_DIR} include/babeltrader/base)
+muggle_install_headers(${CMAKE_CURRENT_LIST_DIR}/../include include/babeltrader/include)

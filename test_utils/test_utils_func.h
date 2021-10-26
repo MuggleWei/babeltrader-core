@@ -39,6 +39,17 @@ public:
 	 */
 	TESTUTILS_EXPORT
 	static bool writeFile(std::string &str, const char *filepath);
+
+	/**
+	 * @brief convert bytes array to hex string
+	 *
+	 * @param data      bytes array
+	 * @param data_len  length of bytes array
+	 *
+	 * @return hex string
+	 */
+	TESTUTILS_EXPORT
+	static std::string DumpBytesToHex(void *data, uint32_t data_len);
 };
 
 NS_BABELTRADER_END

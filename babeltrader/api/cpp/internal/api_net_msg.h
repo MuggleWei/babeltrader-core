@@ -1,55 +1,42 @@
 /******************************************************************************
- *  @file         net_message.h
+ *  @file         api_net_msg.h
  *  @author       Muggle Wei
  *  @email        mugglewei@gmail.com
- *  @date         2021-08-17
+ *  @date         2021-10-19
  *  @copyright    Copyright 2021 Muggle Wei
  *  @license      MIT License
- *  @brief        babeltrader network message
+ *  @brief        babeltrader api network message
  *****************************************************************************/
 
-#ifndef BABELTRADER_NETWORK_MESSAGE_H_
-#define BABELTRADER_NETWORK_MESSAGE_H_
+#ifndef BABELTRADER_API_NETWORK_MESSAGE_H_
+#define BABELTRADER_API_NETWORK_MESSAGE_H_
 
-#include "babeltrader/base/defines/macro.h"
-#include "babeltrader/base/defines/msg_struct.h"
-
-; // for avoid pragma warning tip in vim
-#pragma pack(push, 1)
+#include "babeltrader/include/common_net_message.h"
+#include "babeltrader/api/cpp/api_macro.h"
+#include "babeltrader/api/cpp/api_msg_struct.h"
 
 NS_BABELTRADER_BEGIN
 
-/**
- * @brief network message head
- */
-struct NetworkMessage
-{
-	uint32_t msg_type;     //!< message type
-	uint32_t payload_len;  //!< payload data length(not include header)
-};
-
-#define BABELTRADER_NET_PAYLOAD_SIZE(T) (sizeof(T) - sizeof(NetworkMessage))
+/////////////////////// common message struct ///////////////////////
 
 /**
- * @brief network message block
+ * @brief heartbeat ping message
  */
-struct NetworkMsgBlock
+struct MsgHeartbeatPing
 {
-	NetworkMessage head; //!< network message head
-	char placeholder[BABELTRADER_NET_MTU-sizeof(NetworkMessage)]; //!< placeholder for payload
+	uint64_t sec;  //!< timestamp second
 };
 
 /**
- * @brief network message data pointer
- *
- * NOTE: this struct just use in process internal
+ * @brief heartbeat pong message
  */
-struct NetworkMsgDataPtr
+struct MsgHeartbeatPong
 {
-	NetworkMessage head; //!< network message head
-
-	void *data; //!< data pointer
+	uint64_t sec;  //!< timestamp second
 };
+
+
+/////////////////////// network message ///////////////////////
 
 /**
  * @brief MSG_TYPE_HEARTBEAT_PING
@@ -99,6 +86,4 @@ typedef NetMsgRspQuoteSub NetMsgRspQuoteUnsub;
 
 NS_BABELTRADER_END
 
-#pragma pack(pop)
-
-#endif /* ifndef BABELTRADER_NETWORK_MESSAGE_H_ */
+#endif /* ifndef BABELTRADER_API_NETWORK_MESSAGE_H_ */

@@ -11,7 +11,7 @@
 #ifndef BABELTRADER_API_ERROR_H_
 #define BABELTRADER_API_ERROR_H_
 
-#include "babeltrader/api/cpp/macro.h"
+#include "babeltrader/api/cpp/api_macro.h"
 
 NS_BABELTRADER_BEGIN
 

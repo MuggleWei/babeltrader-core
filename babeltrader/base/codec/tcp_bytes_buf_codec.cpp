@@ -1,6 +1,6 @@
 #include "tcp_bytes_buf_codec.h"
-#include "babeltrader/base/defines/net_message.h"
 #include "babeltrader/base/log/log.h"
+#include "babeltrader/include/common_net_message.h"
 
 NS_BABELTRADER_BEGIN
 

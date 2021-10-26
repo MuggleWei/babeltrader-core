@@ -26,30 +26,6 @@ void EndianConv::swapEndian(NetworkMessage &head)
 	head.payload_len = swap(head.payload_len);
 }
 
-void EndianConv::swapEndian(NetworkMsgHeartbeatPing &msg)
-{
-	swapEndian(msg.head);
-	swapEndian(msg.msg);
-}
-
-void EndianConv::swapEndian(NetworkMsgHeartbeatPong &msg)
-{
-	swapEndian(msg.head);
-	swapEndian(msg.msg);
-}
-
-void EndianConv::swapEndian(NetMsgReqQuoteSub &msg)
-{
-	swapEndian(msg.head);
-	swapEndian(msg.msg);
-}
-
-void EndianConv::swapEndian(NetMsgRspQuoteSub &msg)
-{
-	swapEndian(msg.head);
-	swapEndian(msg.msg);
-}
-
 int16_t EndianConv::swap(int16_t i16)
 {
 	return MUGGLE_ENDIAN_SWAP_16(i16);
@@ -79,40 +55,4 @@ uint64_t EndianConv::swap(uint64_t u64)
 {
 	return MUGGLE_ENDIAN_SWAP_64(u64);
 }
-
-void EndianConv::swapEndian(Instrument &msg)
-{
-	msg.api = swap(msg.api);
-	msg.exchange = swap(msg.exchange);
-}
-
-void EndianConv::swapEndian(MsgErrorInfo &msg)
-{
-	msg.err_id = swap(msg.err_id);
-	msg.uperr_id = swap(msg.uperr_id);
-}
-
-void EndianConv::swapEndian(MsgHeartbeatPing &msg)
-{
-	msg.sec = swap(msg.sec);
-}
-
-void EndianConv::swapEndian(MsgHeartbeatPong &msg)
-{
-	msg.sec = swap(msg.sec);
-}
-
-void EndianConv::swapEndian(MsgReqQuoteSub &msg)
-{
-	msg.req_id = swap(msg.req_id);
-	msg.quote_type = swap(msg.quote_type);
-	swapEndian(msg.instrument);
-}
-
-void EndianConv::swapEndian(MsgRspQuoteSub &msg)
-{
-	swapEndian(msg.req);
-	swapEndian(msg.err_info);
-}
-
 NS_BABELTRADER_END

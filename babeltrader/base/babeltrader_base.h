@@ -11,14 +11,17 @@
 #ifndef BABELTRADER_BASE_H_
 #define BABELTRADER_BASE_H_
 
-// def
+// common
+#include "babeltrader/include/common_macro.h"
+#include "babeltrader/include/common_msg_type.h"
+#include "babeltrader/include/common_net_message.h"
+#include "babeltrader/include/common_event_message.h"
+#include "babeltrader/include/common_msg_struct.h"
+
+// defines
 #include "babeltrader/base/defines/macro.h"
 #include "babeltrader/base/defines/enum.h"
 #include "babeltrader/base/defines/struct.h"
-#include "babeltrader/base/defines/msg_type.h"
-#include "babeltrader/base/defines/msg_struct.h"
-#include "babeltrader/base/defines/event_message.h"
-#include "babeltrader/base/defines/net_message.h"
 
 // version
 #include "babeltrader/base/version/version.h"
@@ -40,11 +43,11 @@
 
 // service
 #include "babeltrader/base/service/endian_conv.h"
-#include "babeltrader/base/service/quote_server_config.h"
-#include "babeltrader/base/service/quote_sub_config.h"
 #include "babeltrader/base/service/socket_handle.h"
-#include "babeltrader/base/service/tcp_server_handle.h"
+#include "babeltrader/base/service/tcp_socket_handle.h"
 #include "babeltrader/base/service/event_loop.h"
+#include "babeltrader/base/service/server_event_loop.h"
+#include "babeltrader/base/service/session_manager.h"
 #include "babeltrader/base/service/message_dispatcher.hpp"
 
 #endif /* ifndef BABELTRADER_BASE_H_ */

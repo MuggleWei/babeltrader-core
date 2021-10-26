@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "babeltrader/base/babeltrader_base.h"
 #include "test_utils/test_utils.h"
+#include "babeltrader/api/cpp/internal/api_net_msg.h"
 
 USING_NS_BABELTRADER;
 
@@ -43,85 +43,6 @@ TEST_F(TestEndianFixture, NetworkMessage)
 	msg.payload_len = 64;
 
 	NetworkMessage msg_cpy;
-	memcpy(&msg_cpy, &msg, sizeof(msg));
-
-	TEST_MSG_ENDIAN;
-}
-
-TEST_F(TestEndianFixture, NetworkMsgHeartbeatPing)
-{
-	NetworkMsgHeartbeatPing msg;
-	memset(&msg, 0, sizeof(msg));
-
-	msg.head.msg_type = MSG_TYPE_HEARTBEAT_PING;
-	msg.head.payload_len = sizeof(msg.msg);
-	msg.msg.sec = (uint64_t)time(nullptr);
-
-	NetworkMsgHeartbeatPing msg_cpy;
-	memcpy(&msg_cpy, &msg, sizeof(msg));
-
-	TEST_MSG_ENDIAN;
-}
-
-TEST_F(TestEndianFixture, NetworkMsgHeartbeatPong)
-{
-	NetworkMsgHeartbeatPong msg;
-	memset(&msg, 0, sizeof(msg));
-
-	msg.head.msg_type = MSG_TYPE_HEARTBEAT_PONG;
-	msg.head.payload_len = sizeof(msg.msg);
-	msg.msg.sec = (uint64_t)time(nullptr);
-
-	NetworkMsgHeartbeatPong msg_cpy;
-	memcpy(&msg_cpy, &msg, sizeof(msg));
-
-	TEST_MSG_ENDIAN;
-}
-
-TEST_F(TestEndianFixture, NetMsgReqQuoteSub)
-{
-	NetMsgReqQuoteSub msg;
-	memset(&msg, 0, sizeof(msg));
-
-	msg.head.msg_type = MSG_TYPE_API_QUOTES_REQ_SUB;
-	msg.head.payload_len = sizeof(msg.msg);
-
-	msg.msg.req_id = 1;
-	msg.msg.quote_type = EnumQuoteType::QuoteType_Snapshot;
-
-	Instrument &instrument = msg.msg.instrument;
-	instrument.api = EnumApi::Api_CTP;
-	instrument.exchange = EnumExchange::Exchange_SHFE;
-	instrument.product_type = EnumProductType::ProductType_Futures;
-	strncpy(instrument.instrument_id, "rb2201", sizeof(instrument.instrument_id));
-
-	NetMsgReqQuoteSub msg_cpy;
-	memcpy(&msg_cpy, &msg, sizeof(msg));
-
-	TEST_MSG_ENDIAN;
-}
-
-TEST_F(TestEndianFixture, NetMsgRspQuoteSub)
-{
-	NetMsgRspQuoteSub msg;
-	memset(&msg, 0, sizeof(msg));
-
-	msg.head.msg_type = MSG_TYPE_API_QUOTES_REQ_SUB;
-	msg.head.payload_len = sizeof(msg.msg);
-
-	MsgReqQuoteSub &req = msg.msg.req;
-	req.req_id = 1;
-	req.quote_type = EnumQuoteType::QuoteType_Snapshot;
-
-	Instrument &instrument = req.instrument;
-	instrument.api = EnumApi::Api_CTP;
-	instrument.exchange = EnumExchange::Exchange_SHFE;
-	instrument.product_type = EnumProductType::ProductType_Futures;
-	strncpy(instrument.instrument_id, "rb2201", sizeof(instrument.instrument_id));
-
-	msg.msg.err_info.err_id = 10001;
-
-	NetMsgRspQuoteSub msg_cpy;
 	memcpy(&msg_cpy, &msg, sizeof(msg));
 
 	TEST_MSG_ENDIAN;

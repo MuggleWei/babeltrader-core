@@ -12,7 +12,7 @@
 #define BABELTRADER_ENDIAN_CONV_H_
 
 #include "babeltrader/base/defines/macro.h"
-#include "babeltrader/base/defines/net_message.h"
+#include "babeltrader/include/common_net_message.h"
 
 NS_BABELTRADER_BEGIN
 
@@ -57,39 +57,6 @@ public:
 	 */
 	BABELTRADER_EXPORT
 	void swapEndian(NetworkMessage &head);
-
-	/**
-	 * @brief swap endianness - NetworkMsgHeartbeatPing
-	 *
-	 * @param msg  NetworkMsgHeartbeatPing
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(NetworkMsgHeartbeatPing &msg);
-
-	/**
-	 * @brief swap endianness - NetworkMsgHeartbeatPong
-	 *
-	 * @param msg  NetworkMsgHeartbeatPong
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(NetworkMsgHeartbeatPong &msg);
-
-	/**
-	 * @brief swap endianness - NetMsgReqQuoteSub
-	 *
-	 * @param msg  NetMsgReqQuoteSub
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(NetMsgReqQuoteSub &msg);
-
-	/**
-	 * @brief swap endianness - NetMsgRspQuoteSub
-	 *
-	 * @param msg  NetMsgRspQuoteSub
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(NetMsgRspQuoteSub &msg);
-
 
 protected:
 
@@ -152,55 +119,6 @@ protected:
 	 */
 	BABELTRADER_EXPORT
 	uint64_t swap(uint64_t u64);
-
-	/**
-	 * @brief swap endianness - Instrument
-	 *
-	 * @param msg  Instrument
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(Instrument &msg);
-
-	/**
-	 * @brief swap endianness - MsgErrorInfo
-	 *
-	 * @param msg  MsgErrorInfo
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(MsgErrorInfo &msg);
-
-	/**
-	 * @brief swap endianness - MsgHeartbeatPing
-	 *
-	 * @param msg  MsgHeartbeatPing
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(MsgHeartbeatPing &msg);
-
-	/**
-	 * @brief swap endianness - MsgHeartbeatPong
-	 *
-	 * @param msg  MsgHeartbeatPong
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(MsgHeartbeatPong &msg);
-
-	/**
-	 * @brief swap endianness - MsgReqQuoteSub
-	 *
-	 * @param msg  MsgReqQuoteSub
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(MsgReqQuoteSub &msg);
-
-	/**
-	 * @brief swap endianness - NetMsgRspQuoteSub
-	 *
-	 * @param msg  NetMsgRspQuoteSub
-	 */
-	BABELTRADER_EXPORT
-	void swapEndian(MsgRspQuoteSub &msg);
-
 
 protected:
 	int endian_;     //!< endianness in host

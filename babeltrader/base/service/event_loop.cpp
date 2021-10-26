@@ -1,31 +1,21 @@
 #include "event_loop.h"
 #include <thread>
-#include "babeltrader/base/defines/msg_type.h"
+#include "babeltrader/include/common_msg_struct.h"
+#include "babeltrader/include/common_msg_type.h"
 #include "babeltrader/base/memory/event_msg_pool.h"
 
 NS_BABELTRADER_BEGIN
 
-EventLoop::EventLoop(uint32_t capacity, int flags)
+EventLoop::EventLoop(int max_msg_type, uint32_t capacity, int flags)
 	: chan_(capacity, flags)
-	, dispatcher_(nullptr)
+	, dispatcher_(max_msg_type)
 {}
 
 EventLoop::~EventLoop()
 {}
 
-void EventLoop::setDispatcher(MessageDispatcher *dispatcher)
-{
-	dispatcher_ = dispatcher;
-}
-
 void EventLoop::run()
 {
-	if (dispatcher_ == nullptr)
-	{
-		LOG_ERROR("run without dispatcher");
-		return;
-	}
-
 	while (true)
 	{
 		EventMessage *msg = (EventMessage*)chan_.read();
@@ -35,14 +25,48 @@ void EventLoop::run()
 
 int EventLoop::push(EventMessage *msg)
 {
-	return chan_.write((void*)msg);
+	int ret = chan_.write((void*)msg);
+	if (ret != 0)
+	{
+		LOG_WARNING(
+			"failed write event message into chan: "
+			"msg_type=%llu, ret=%d",
+			(unsigned long long)msg->msg_type, ret);
+	}
+
+	return ret;
+}
+
+void EventLoop::runTimer(uint32_t interval_ms)
+{
+	if (interval_ms == 0)
+	{
+		return;
+	}
+
+	std::thread th([&, interval_ms]{
+		int cap = 2000 / interval_ms;
+		cap = cap > 16 ? cap : 16;
+
+		EventMsgSowrPool msg_pool(cap);
+		while (true)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(interval_ms));
+			EventMessage *event_msg = 
+				(EventMessage*)msg_pool.Allocate(BABELTRADER_EV_MSG_SIZE(MsgEmpty));
+
+			event_msg->msg_type = MSG_TYPE_TIMER;
+			push(event_msg);
+		}
+	});
+	th.detach();
 }
 
 void EventLoop::onMessage(EventMessage *msg)
 {
 	if (msg)
 	{
-		if (!dispatcher_->OnMessage(msg->msg_type, (void*)msg))
+		if (!dispatcher_.OnMessage(msg->msg_type, (void*)msg))
 		{
 			LOG_WARNING(
 				"event loop failed dispatch message: msg_type=%lu",
@@ -70,28 +94,6 @@ void EventLoop::clearMessage(EventMessage *msg)
 			free(msg);
 		}
 	}
-}
-
-void EventLoop::runTimer(uint32_t interval_sec)
-{
-	if (interval_sec == 0)
-	{
-		return;
-	}
-
-	std::thread th([&, interval_sec]{
-		EventMsgSowrPool msg_pool(16);
-		while (true)
-		{
-			std::this_thread::sleep_for(std::chrono::seconds(interval_sec));
-			EventMessage *event_msg = 
-				(EventMessage*)msg_pool.Allocate(BABELTRADER_EV_MSG_SIZE(MsgEmpty));
-
-			event_msg->msg_type = MSG_TYPE_TIMER;
-			push(event_msg);
-		}
-	});
-	th.detach();
 }
 
 NS_BABELTRADER_END

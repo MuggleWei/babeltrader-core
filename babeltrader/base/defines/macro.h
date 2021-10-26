@@ -12,7 +12,7 @@
 #define BABELTRADER_BASE_MACRO_H_
 
 #include "muggle/cpp/muggle_cpp.h"
-#include "babeltrader/api/cpp/api.h"
+#include "babeltrader/include/common_macro.h"
 
 // lib and dll
 #if MUGGLE_PLATFORM_WINDOWS && defined(BABELTRADER_USE_DLL)

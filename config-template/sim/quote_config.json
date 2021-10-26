@@ -1,0 +1,15 @@
+{
+	"quote_server": {
+		"tcp_listen_ip": "127.0.0.1",
+		"tcp_listen_port": 6001,
+		"udp_send_ip": "",
+		"udp_send_port": 0,
+		"timer_interval": 10,
+		"idle_timeout": 30,
+		"event_pipe_size": 65536,
+		"recv_unit_size": 4096,
+		"max_msg_size": 1400,
+		"socket_bytes_buf_size": 4194304,
+		"hints_max_connect": 512
+	}
+}
