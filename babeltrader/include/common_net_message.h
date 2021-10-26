@@ -32,6 +32,13 @@ struct NetworkMessage
 
 #define BABELTRADER_NET_PAYLOAD_SIZE(T) (sizeof(T) - sizeof(NetworkMessage))
 
+#define BABELTRADER_FILLUP_NET_HEAD(net_msg, msgtype) \
+{ \
+	memset(&net_msg, 0, sizeof(net_msg)); \
+	net_msg.head.msg_type = msgtype; \
+	net_msg.head.payload_len = BABELTRADER_NET_PAYLOAD_SIZE(net_msg); \
+}
+
 /**
  * @brief network message block
  */

@@ -25,7 +25,16 @@ void EventLoop::run()
 
 int EventLoop::push(EventMessage *msg)
 {
-	return chan_.write((void*)msg);
+	int ret = chan_.write((void*)msg);
+	if (ret != 0)
+	{
+		LOG_WARNING(
+			"failed write event message into chan: "
+			"msg_type=%llu, ret=%d",
+			(unsigned long long)msg->msg_type, ret);
+	}
+
+	return ret;
 }
 
 void EventLoop::runTimer(uint32_t interval_ms)

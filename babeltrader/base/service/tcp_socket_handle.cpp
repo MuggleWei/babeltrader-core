@@ -31,7 +31,7 @@ void TCPSocketHandle::onListen(muggle_socket_event_t *, muggle::SocketPeer *peer
 		snprintf(buf, MUGGLE_SOCKET_ADDR_STRLEN, "unknown:unknown");
 	}
 
-	LOG_DEBUG("success listen: addr=%s", buf);
+	LOG_TRACE("success listen: addr=%s", buf);
 }
 
 void TCPSocketHandle::onConnect(muggle_socket_event_t *, muggle::SocketPeer *peer)
@@ -43,8 +43,9 @@ void TCPSocketHandle::onConnect(muggle_socket_event_t *, muggle::SocketPeer *pee
 		return;
 	}
 	session->handle = this;
+	session->last_active = (uint64_t)time(nullptr);
 
-	LOG_DEBUG("TCP connection: remote_addr=%s", session->remote_addr);
+	LOG_TRACE("TCP connection: remote_addr=%s", session->remote_addr);
 
 	EventMessage *event_msg =
 		(EventMessage*)msg_pool_->Allocate(BABELTRADER_EV_MSG_SIZE(MsgTCPConn));
@@ -71,13 +72,18 @@ void TCPSocketHandle::onConnect(muggle_socket_event_t *, muggle::SocketPeer *pee
 void TCPSocketHandle::onMessage(muggle_socket_event_t*, muggle::SocketPeer *peer)
 {
 	TCPSession *session = (TCPSession*)peer->getUserData();
+
+	// update last active
+	session->last_active = (uint64_t)time(nullptr);
+
+	// recv message
 	recv((NetworkSession*)session);
 }
 
 void TCPSocketHandle::onError(muggle_socket_event_t *, muggle::SocketPeer *peer)
 {
 	TCPSession *session = (TCPSession*)peer->getUserData();
-	LOG_DEBUG("TCP disconnection: remote_addr=%s", session->remote_addr);
+	LOG_TRACE("TCP disconnection: remote_addr=%s", session->remote_addr);
 
 	EventMessage *event_msg =
 		(EventMessage*)msg_pool_->Allocate(BABELTRADER_EV_MSG_SIZE(MsgTCPConn));
@@ -123,7 +129,7 @@ void TCPSocketHandle::onRecv(NetworkSession *session, void *data, uint32_t data_
 
 	NetworkMessage *head = (NetworkMessage*)data;
 
-	LOG_DEBUG(
+	LOG_TRACE(
 		"TCP server handle onRecv: "
 		"remote=%s, msg_type=%lu, data_len=%lu, payload_len=%lu",
 		session->remote_addr, (unsigned long)head->msg_type,
@@ -164,6 +170,11 @@ void TCPSocketHandle::recv(NetworkSession *session)
 
 void TCPSocketHandle::send(NetworkSession *session, void *data, uint32_t data_len)
 {
+	// update last active
+	TCPSession *tcp_session = (TCPSession*)session;
+	tcp_session->last_active = (uint64_t)time(nullptr);
+
+	// encode message
 	codec_chain_.encode(session, data, data_len);
 }
 

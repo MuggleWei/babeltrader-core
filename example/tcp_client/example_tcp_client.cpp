@@ -36,7 +36,7 @@ void runTCPClient(babeltrader::EventLoop *ev_loop)
 		tcp_client.setHandle(&handle);
 		tcp_client.setConnectAddr(host, serv);
 		tcp_client.setTcpNoDelay(true);
-		tcp_client.setTimer(3000);
+		// tcp_client.setTimer(3000);
 		tcp_client.setAutoReconnect(true, 3000);
 		tcp_client.setConnectTimeout(3);
 		tcp_client.run();
@@ -47,7 +47,7 @@ void runTCPClient(babeltrader::EventLoop *ev_loop)
 int main()
 {
 	// init log
-	if (!babeltrader::Log::Init(LOG_LEVEL_INFO, "log/example_tcp_client.log", LOG_LEVEL_TRACE))
+	if (!babeltrader::Log::Init(LOG_LEVEL_INFO, "log/example_tcp_client.log", LOG_LEVEL_DEBUG))
 	{
 		exit(EXIT_FAILURE);
 	}
@@ -58,14 +58,14 @@ int main()
 	LOG_INFO("Launch example TCP Client");
 
 	// event loop
-	int msg_pool_size = 1024;
-	ExampleClientEventLoop ev_loop(MAX_EXAMPLE_MSG, msg_pool_size, 0);
+	int chan_size = BABELTRADER_DEFAULT_PIPE_SIZE;
+	ExampleClientEventLoop ev_loop(MAX_EXAMPLE_MSG, chan_size, 0);
 
 	// run TCP server
 	runTCPClient(&ev_loop);
 
 	// run timer
-	ev_loop.runTimer(3000);
+	ev_loop.runTimer(10);
 
 	// run event loop
 	ev_loop.run();

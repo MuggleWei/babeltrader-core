@@ -12,9 +12,12 @@ public:
 	ExampleClientEventLoop(int max_msg_type, int capacity, int flags);
 	virtual ~ExampleClientEventLoop();
 
-	virtual void registerCallbacks();
+	virtual void registerCallbacks() override;
 
-	virtual void onTimer(EventMessage *msg, void *data);
+	virtual void onTCPConnect(EventMessage *msg, void *data) override;
+	virtual void onTimer(EventMessage *msg, void *data) override;
+
+	virtual void onMessageBar(EventMessage *msg, MessageBar *data);
 
 private:
 	int64_t req_id_;

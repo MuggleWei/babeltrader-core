@@ -16,7 +16,9 @@ public:
 
 	virtual void onTimer(EventMessage *msg, void *data);
 	virtual void onMessageFoo(EventMessage *msg, MessageFoo *data);
-	virtual void onMessageBar(EventMessage *msg, MessageBar *data);
+
+private:
+	int msg_cnt_;
 };
 
 #endif /* ifndef EXAMPLE_TCP_SERVER_EV_LOOP_H_ */

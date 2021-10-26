@@ -47,7 +47,7 @@ void runTCPServer(babeltrader::EventLoop *ev_loop)
 int main()
 {
 	// init log
-	if (!babeltrader::Log::Init(LOG_LEVEL_INFO, "log/example_tcp_server.log", LOG_LEVEL_TRACE))
+	if (!babeltrader::Log::Init(LOG_LEVEL_INFO, "log/example_tcp_server.log", LOG_LEVEL_DEBUG))
 	{
 		exit(EXIT_FAILURE);
 	}
@@ -58,8 +58,8 @@ int main()
 	LOG_INFO("Launch example TCP Server");
 
 	// event loop
-	int msg_pool_size = 1024;
-	ExampleServerEventLoop ev_loop(MAX_EXAMPLE_MSG, msg_pool_size, 0);
+	int chan_size = BABELTRADER_DEFAULT_PIPE_SIZE;
+	ExampleServerEventLoop ev_loop(MAX_EXAMPLE_MSG, chan_size, 0);
 
 	// run TCP server
 	runTCPServer(&ev_loop);

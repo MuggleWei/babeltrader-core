@@ -37,7 +37,6 @@ void ServerEventLoop::onTCPConnect(EventMessage *msg, void *)
 		session->remote_addr, (unsigned long long)session->session_id);
 
 	tcp_sessions_.insert(session);
-	session->last_active = (uint64_t)time(nullptr);
 }
 
 void ServerEventLoop::onTCPDicconnect(EventMessage *msg, void *)
