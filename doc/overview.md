@@ -11,28 +11,28 @@ babeltrader
     |---- base
     |
     |---- api
-	|      |---- cpp
-	|      |---- py
-	|      |---- java
-	|      |---- golang
-	|      |---- ....
-	|
+    |      |---- cpp
+    |      |---- py
+    |      |---- java
+    |      |---- golang
+    |      |---- ....
+    |
     |---- utils
-	|
-	|---- ${upstream}
-	|          |
-	|          |---- trade
-	|          |
-	|          |---- quote
-	|          |
-	|          |---- api
-	|                 |---- cpp
-	|                 |---- py
-	|                 |---- java
-	|                 |---- golang
-	|                 |---- ....
-	|
-	|---- ......
+    |
+    |---- ${upstream}
+    |          |
+    |          |---- trade
+    |          |
+    |          |---- quote
+    |          |
+    |          |---- api
+    |                 |---- cpp
+    |                 |---- py
+    |                 |---- java
+    |                 |---- golang
+    |                 |---- ....
+    |
+    |---- ......
 ```
 其中base, api以及utils包含在babeltrader-core当中; ${upstream}代表一个上手, 为一个单独的项目
 

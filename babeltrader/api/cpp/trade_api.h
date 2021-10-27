@@ -66,7 +66,7 @@ public:
 	 *
 	 * @note invoke this function before run
 	 */
-	virtual void RegisterSpi(babeltrader::TradeSpi *spi) = 0;
+	virtual void RegisterSpi(babeltrader::TradeSpi *spi);
 
 	/**
 	 * @brief register service's address
@@ -75,17 +75,17 @@ public:
 	 *
 	 * @note  address's format: "protocol://ipaddress:port", for example: "tcp://127.0.0.1:10102"
 	 */
-	virtual void RegisterServiceAddr(const char *addr) = 0;
+	virtual void RegisterServiceAddr(const char *addr);
 
 	/**
 	 * @brief run api
 	 */
-	virtual void Run() = 0;
+	virtual void Run();
 
 	/**
 	 * @brief stop api
 	 */
-	virtual void Stop() = 0;
+	virtual void Stop();
 
 	/**
 	 * @brief get current trading day
@@ -95,7 +95,7 @@ public:
 	 * @note
 	 * the trading day can only be obtained after successful login
 	 */
-	virtual const char* GetTradingDay() = 0;
+	virtual const char* GetTradingDay();
 };
 
 NS_BABELTRADER_END
