@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.0.2)
 # import mugglecpp
 message("-- import mugglecpp")
 configure_file(
-	${CMAKE_SOURCE_DIR}/cmake/mugglecpp.cmake.in
+	${CMAKE_CURRENT_LIST_DIR}/mugglecpp.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/mugglecpp-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
 	RESULT_VARIABLE result
@@ -41,7 +41,7 @@ add_subdirectory(
 
 message("-- import rapidjson")
 configure_file(
-	${CMAKE_SOURCE_DIR}/cmake/rapidjson.cmake.in
+	${CMAKE_CURRENT_LIST_DIR}/rapidjson.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/rapidjson-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
 	RESULT_VARIABLE result
@@ -72,7 +72,7 @@ if (BABELTRADER_BUILD_TESTING)
 		message("-- GTest both libraries: ${GTEST_BOTH_LIBRARIES}")
 	else()
 		configure_file(
-			${CMAKE_SOURCE_DIR}/cmake/googletest.cmake.in
+			${CMAKE_CURRENT_LIST_DIR}/googletest.cmake.in
 			googletest-download/CMakeLists.txt)
 		execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
 			RESULT_VARIABLE result
