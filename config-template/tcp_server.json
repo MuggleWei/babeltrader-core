@@ -1,0 +1,15 @@
+{
+	"tcp_server": {
+		"host": "127.0.0.1",
+		"port": 10102,
+		"msg_pool_size": 1024,
+		"recv_unit_size": 4096,
+		"bytes_buf_size": 4194304,
+		"hints_max_connect": 512
+	},
+	"ev_loop": {
+		"timer_interval_ms": 10000,
+		"idle_timeout": 30,
+		"pipe_size": 1024
+	}
+}

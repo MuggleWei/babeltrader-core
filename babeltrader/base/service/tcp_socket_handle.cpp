@@ -31,7 +31,7 @@ void TCPSocketHandle::onListen(muggle_socket_event_t *, muggle::SocketPeer *peer
 		snprintf(buf, MUGGLE_SOCKET_ADDR_STRLEN, "unknown:unknown");
 	}
 
-	LOG_TRACE("success listen: addr=%s", buf);
+	LOG_DEBUG("success listen: addr=%s", buf);
 }
 
 void TCPSocketHandle::onConnect(muggle_socket_event_t *, muggle::SocketPeer *peer)
@@ -45,7 +45,7 @@ void TCPSocketHandle::onConnect(muggle_socket_event_t *, muggle::SocketPeer *pee
 	session->handle = this;
 	session->last_active = (uint64_t)time(nullptr);
 
-	LOG_TRACE("TCP connection: remote_addr=%s", session->remote_addr);
+	LOG_DEBUG("TCP connection: remote_addr=%s", session->remote_addr);
 
 	EventMessage *event_msg =
 		(EventMessage*)msg_pool_->Allocate(BABELTRADER_EV_MSG_SIZE(MsgTCPConn));
@@ -83,7 +83,7 @@ void TCPSocketHandle::onMessage(muggle_socket_event_t*, muggle::SocketPeer *peer
 void TCPSocketHandle::onError(muggle_socket_event_t *, muggle::SocketPeer *peer)
 {
 	TCPSession *session = (TCPSession*)peer->getUserData();
-	LOG_TRACE("TCP disconnection: remote_addr=%s", session->remote_addr);
+	LOG_DEBUG("TCP disconnection: remote_addr=%s", session->remote_addr);
 
 	EventMessage *event_msg =
 		(EventMessage*)msg_pool_->Allocate(BABELTRADER_EV_MSG_SIZE(MsgTCPConn));
@@ -129,7 +129,7 @@ void TCPSocketHandle::onRecv(NetworkSession *session, void *data, uint32_t data_
 
 	NetworkMessage *head = (NetworkMessage*)data;
 
-	LOG_TRACE(
+	LOG_DEBUG(
 		"TCP server handle onRecv: "
 		"remote=%s, msg_type=%lu, data_len=%lu, payload_len=%lu",
 		session->remote_addr, (unsigned long)head->msg_type,

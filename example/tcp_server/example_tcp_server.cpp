@@ -1,24 +1,24 @@
 #include <thread>
 #include "babeltrader/base/babeltrader_base.h"
+#include "babeltrader/utils/babeltrader_utils.h"
 #include "example/include/example_msg.h"
+#include "example_tcp_server_config.h"
 #include "example_tcp_server_ev_loop.h"
 
-void runTCPServer(babeltrader::EventLoop *ev_loop)
+void runTCPServer(babeltrader::EventLoop *ev_loop, ExampleServerConfig *cfg)
 {
-	std::thread th([ev_loop]{
-		// configs
-		unsigned int max_connect = BABELTRADER_DEFAULT_HINTS_MAX_CONN;
-		int chan_size = BABELTRADER_DEFAULT_PIPE_SIZE;
-		int socket_bytes_buf_size = BABELTRADER_DEFAULT_BYTES_BUF_SIZE;
-		int socket_recv_unit_size = BABELTRADER_DEFAULT_RECV_UNIT_SIZE;
-		int max_msg_size = BABELTRADER_DEFAULT_RECV_UNIT_SIZE;
+	std::thread th([ev_loop, cfg]{
+		// config
+		ExampleServerConfig &config = *cfg;
 
-		const char *host = "127.0.0.1";
-		const char *serv = "10102";
+		char serv[32];
+		snprintf(serv, sizeof(serv), "%d", config.tcp_server.port);
+
+		int max_msg_size = BABELTRADER_NET_MTU - sizeof(NetworkMessage);
 
 		// TCP server handle
-		muggle::MemoryPool<babeltrader::TCPSession> session_pool(max_connect);
-		babeltrader::EventMsgSowrPool msg_pool(chan_size);
+		muggle::MemoryPool<babeltrader::TCPSession> session_pool(config.tcp_server.hints_max_connect);
+		babeltrader::EventMsgSowrPool msg_pool(config.tcp_server.msg_pool_size);
 		babeltrader::TcpBytesBufCodec codec;
 
 		babeltrader::TCPSocketHandle handle;
@@ -26,8 +26,8 @@ void runTCPServer(babeltrader::EventLoop *ev_loop)
 		handle.appendCodec(&codec);
 		handle.setSessionPool(&session_pool);
 		handle.setEventMessagePool(&msg_pool);
-		handle.setBytesBufferSize(socket_bytes_buf_size);
-		handle.setRecvUnitSize(socket_recv_unit_size);
+		handle.setBytesBufferSize(config.tcp_server.bytes_buf_size);
+		handle.setRecvUnitSize(config.tcp_server.recv_unit_size);
 		handle.setMaxMsgSize(max_msg_size);
 		handle.setConnRole(babeltrader::CONNECT_ROLE_CLIENT);
 		handle.setConnHandleId(0);
@@ -35,16 +35,39 @@ void runTCPServer(babeltrader::EventLoop *ev_loop)
 		// TCP server
 		muggle::TcpServer tcp_server;
 		tcp_server.setHandle(&handle);
-		tcp_server.setListenAddr(host, serv);
+		tcp_server.setListenAddr(config.tcp_server.host.c_str(), serv);
 		tcp_server.setTcpNoDelay(true);
-		tcp_server.setHintsMaxPeer(max_connect);
+		tcp_server.setHintsMaxPeer(config.tcp_server.hints_max_connect);
 
 		tcp_server.run();
 	});
 	th.detach();
 }
 
-int main()
+void loadConfig(int argc, char *argv[], ExampleServerConfig &config)
+{
+	const char *cfg_file_path = "config/tcp_server.json";
+	int opt;
+	while ((opt = getopt(argc, argv, "c:")) != -1)
+	{
+		switch (opt)
+		{
+			case 'c':
+			{
+				cfg_file_path = optarg;
+			}break;
+		}
+	}
+
+	LOG_INFO("load config file: %s", cfg_file_path);
+	if (!config.load(cfg_file_path))
+	{
+		LOG_ERROR("failed load config file: %s", cfg_file_path);
+		exit(EXIT_FAILURE);
+	}
+}
+
+int main(int argc, char *argv[])
 {
 	// init log
 	if (!babeltrader::Log::Init(LOG_LEVEL_INFO, "log/example_tcp_server.log", LOG_LEVEL_DEBUG))
@@ -55,17 +78,19 @@ int main()
 	// init socket
 	muggle_socket_lib_init();
 
+	// load config
+	ExampleServerConfig config;
+	loadConfig(argc, argv, config);
+
 	LOG_INFO("Launch example TCP Server");
 
 	// event loop
-	int chan_size = BABELTRADER_DEFAULT_PIPE_SIZE;
-	ExampleServerEventLoop ev_loop(MAX_EXAMPLE_MSG, chan_size, 0);
+	ExampleServerEventLoop ev_loop(MAX_EXAMPLE_MSG, config.ev_loop.pipe_size, 0);
+	ev_loop.setTimerMs(config.ev_loop.timer_interval_ms);
+	ev_loop.setIdleTimeout(config.ev_loop.idle_timeout);
 
 	// run TCP server
-	runTCPServer(&ev_loop);
-
-	// run timer
-	ev_loop.runTimer(3000);
+	runTCPServer(&ev_loop, &config);
 
 	// run event loop
 	ev_loop.run();

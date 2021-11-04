@@ -15,11 +15,12 @@
 
 NS_BABELTRADER_BEGIN
 
+#define BABELTRADER_DEFAULT_MSG_POOL_SIZE 1024 //!< default message pool size
 #define BABELTRADER_DEFAULT_PIPE_SIZE 1024 //!< default pipe size
 #define BABELTRADER_DEFAULT_RECV_UNIT_SIZE 4096 //!< default recv unit size
 #define BABELTRADER_DEFAULT_BYTES_BUF_SIZE (4*1024*1024) //!< default bytes buffer size
 #define BABELTRADER_DEFAULT_HINTS_MAX_CONN 512  //!< default hints max connect
-#define BABELTRADER_DEFAULT_SERV_TIMER_INTERVAL 10 //!< default timer interval
+#define BABELTRADER_DEFAULT_SERV_TIMER_INTERVAL (10*1000) //!< default timer interval
 #define BABELTRADER_DEFAULT_SERV_IDLE 30 //!< default disconnect idle time
 
 NS_BABELTRADER_END

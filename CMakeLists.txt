@@ -88,6 +88,9 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/base)
 ################ babeltrader_cpp_api ################
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/api/cpp)
 
+################ babeltrader_cpp_utils ################
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/babeltrader/utils)
+
 ################ test_utils ################
 if (BABELTRADER_BUILD_TESTING)
 	enable_testing()
@@ -156,10 +159,12 @@ function(add_example name folder)
 	endif(WIN32)
 	add_dependencies(${name}
 		${babeltrader_base}
+		${babeltrader_utils}
 		${babeltrader_test_utils}
 	)
 	target_link_libraries(${name}
 		${babeltrader_base}
+		${babeltrader_utils}
 		${babeltrader_test_utils}
 	)
 	target_compile_definitions(${name}
@@ -187,4 +192,26 @@ if (BABELTRADER_BUILD_EXAMPLE)
 		endif()
 		add_example(${subdir} ${CMAKE_CURRENT_LIST_DIR}/example/${subdir})
 	ENDFOREACH()
+endif()
+
+################ copy configs ################
+if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/config)
+	message("-- config not exists, copy config-template/* into config/")
+	set(config_dir ${CMAKE_CURRENT_LIST_DIR}/config-template)
+	FILE(GLOB config_files RELATIVE ${config_dir} ${config_dir}/*)
+	foreach (cf ${config_files})
+		file(COPY ${config_dir}/${cf} DESTINATION ${CMAKE_CURRENT_LIST_DIR}/config)
+	endforeach()
+endif()
+
+if (WIN32)
+	add_custom_target(
+		FAKE_COPY_CONFIG ALL
+		COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/config ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)/config
+	)
+else()
+	add_custom_target(
+		FAKE_COPY_CONFIG ALL
+		COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/config ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/config
+	)
 endif()

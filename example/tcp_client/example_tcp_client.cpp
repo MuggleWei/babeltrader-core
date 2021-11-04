@@ -58,14 +58,15 @@ int main()
 	LOG_INFO("Launch example TCP Client");
 
 	// event loop
+	int timer_interval_ms = 10;
+	int idle_timeout = 0;
 	int chan_size = BABELTRADER_DEFAULT_PIPE_SIZE;
 	ExampleClientEventLoop ev_loop(MAX_EXAMPLE_MSG, chan_size, 0);
+	ev_loop.setTimerMs(timer_interval_ms);
+	ev_loop.setIdleTimeout(idle_timeout);
 
 	// run TCP server
 	runTCPClient(&ev_loop);
-
-	// run timer
-	ev_loop.runTimer(10);
 
 	// run event loop
 	ev_loop.run();

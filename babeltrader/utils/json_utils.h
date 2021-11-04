@@ -11,7 +11,7 @@
 #ifndef BABELTRADER_JSON_UTILS_H_
 #define BABELTRADER_JSON_UTILS_H_
 
-#include "babeltrader/base/defines/macro.h"
+#include "babeltrader/utils/utils_macro.h"
 #include "babeltrader/base/log/log.h"
 
 NS_BABELTRADER_BEGIN

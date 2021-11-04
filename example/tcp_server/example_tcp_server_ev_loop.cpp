@@ -13,25 +13,10 @@ void ExampleServerEventLoop::registerCallbacks()
 	BABELTRADER_EV_CB(EXAMPLE_MSG_FOO, onMessageFoo, MessageFoo);
 }
 
-void ExampleServerEventLoop::onTimer(EventMessage *, void *)
+void ExampleServerEventLoop::onTimer(EventMessage *msg, void *data)
 {
 	LOG_INFO("total recv message count: %d", msg_cnt_);
-
-	// close idle connection
-	uint64_t curr_ts = (uint64_t)time(nullptr);
-	for (TCPSession *session : tcp_sessions_)
-	{
-		if (curr_ts - session->last_active > 15)
-		{
-			LOG_WARNING(
-				"close idle connection: "
-				"remote_addr=%s, curr_ts=%llu, last_active=%llu",
-				session->remote_addr,
-				(unsigned long long)curr_ts,
-				(unsigned long long)session->last_active);
-			session->peer->close();
-		}
-	}
+	ServerEventLoop::onTimer(msg, data);
 }
 void ExampleServerEventLoop::onMessageFoo(EventMessage *msg, MessageFoo *data)
 {

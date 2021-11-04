@@ -21,7 +21,7 @@ void ExampleClientEventLoop::onTCPConnect(EventMessage *msg, void *data)
 	req_id_ = 0;
 }
 
-void ExampleClientEventLoop::onTimer(EventMessage *, void *)
+void ExampleClientEventLoop::onTimer(EventMessage *msg, void *data)
 {
 	if (tcp_sessions_.size() == 0)
 	{
@@ -52,6 +52,8 @@ void ExampleClientEventLoop::onTimer(EventMessage *, void *)
 	{
 		LOG_INFO("stop send request, wait server idle disconnect");
 	}
+
+	ServerEventLoop::onTimer(msg, data);
 }
 
 void ExampleClientEventLoop::onMessageBar(EventMessage *msg, MessageBar *data)
