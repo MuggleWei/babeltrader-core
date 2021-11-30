@@ -48,6 +48,27 @@ public:
 	BABELTRADER_EXPORT
 	virtual void registerCallbacks();
 
+	/**
+	 * @brief set event loop timer interval in millisecond
+	 *
+	 * @param timer_interval  timer interval, when <= 0, don't set timer
+	 */
+	BABELTRADER_EXPORT
+	virtual void setTimerMs(int timer_interval_ms);
+
+	/**
+	 * @brief set session idle timeout in second
+	 *
+	 * @param idle_timeout idle timeout
+	 * @note
+	 *     if set idle_timeout without set timer_interval, will set
+	 *     timer_interval = idle_timeout * 3
+	 *
+	 *     if idle_timeout <= 0, don't close idle session
+	 */
+	BABELTRADER_EXPORT
+	virtual void setIdleTimeout(int idle_timeout);
+
 	//////////////// calllbacks ////////////////
 	BABELTRADER_EXPORT
 	virtual void onTimer(EventMessage *msg, void *data);
@@ -59,7 +80,17 @@ public:
 	virtual void onTCPDicconnect(EventMessage *msg, void *data);
 
 protected:
+	/**
+	 * @brief handle idle timeout session
+	 */
+	BABELTRADER_EXPORT
+	virtual void handleIdleSession();
+
+protected:
 	std::set<TCPSession*> tcp_sessions_;
+
+	int timer_interval_ms_; //!< timer interval in millisecond
+	int idle_timeout_;      //!< idle timeout in second
 };
 
 NS_BABELTRADER_END

@@ -29,9 +29,6 @@
 // log
 #include "babeltrader/base/log/log.h"
 
-// json
-#include "babeltrader/base/json/json_utils.h"
-
 // memory
 #include "babeltrader/base/memory/event_msg_pool.h"
 
