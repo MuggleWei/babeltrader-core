@@ -5,10 +5,10 @@ project(mugglecpp-download NONE)
 include(ExternalProject)
 ExternalProject_Add(mugglecpp
 	GIT_REPOSITORY    https://github.com/MuggleWei/mugglecpp.git
-	GIT_TAG           v0.0.1-alpha.8
+	GIT_TAG           v0.0.1
 	GIT_SHALLOW       TRUE
-	SOURCE_DIR        "${CMAKE_CURRENT_BINARY_DIR}/mugglecpp-src"
-	BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/mugglecpp-build"
+	SOURCE_DIR        "${CMAKE_BINARY_DIR}/_deps/mugglecpp-src"
+	BINARY_DIR        "${CMAKE_BINARY_DIR}/_deps/mugglecpp-build"
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND     ""
 	INSTALL_COMMAND   ""
