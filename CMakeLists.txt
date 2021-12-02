@@ -64,9 +64,9 @@ message("-- option BABELTRADER_BUILD_EXAMPLE ${BABELTRADER_BUILD_EXAMPLE}")
 ################ import dependencies ################
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/dep.cmake.in)
 
-set(MUGGLECPP_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/mugglecpp-src)
-set(MUGGLEC_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/mugglecpp-build/mugglec-src)
-set(RAPIDJSON_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/rapidjson-src)
+set(MUGGLECPP_SRC_DIR ${CMAKE_BINARY_DIR}/_deps/mugglecpp-src)
+set(MUGGLEC_SRC_DIR ${CMAKE_BINARY_DIR}/_deps/mugglec-src)
+set(RAPIDJSON_SRC_DIR ${CMAKE_BINARY_DIR}/_deps/rapidjson-src)
 
 
 ################ base set ################
